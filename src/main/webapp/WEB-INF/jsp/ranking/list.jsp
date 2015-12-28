@@ -17,7 +17,7 @@
 						</div>
 
 						<div class="caption">
-							<p>NÃºmero de votos - ${ranking.count }</p>
+							<p>Número de votos - ${ranking.count }</p>
 						</div>
 					</div>
 				</c:forEach>

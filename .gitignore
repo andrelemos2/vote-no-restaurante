@@ -1,3 +1,6 @@
 .idea
 target/
 vote-no-restaurante.iml
+.classpath
+.project
+.settings/
