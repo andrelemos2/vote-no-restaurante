@@ -1,12 +1,12 @@
 package br.com.votenorestaurante.service;
 
+import br.com.votenorestaurante.model.Poll;
+import br.com.votenorestaurante.model.Restaurant;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-import br.com.votenorestaurante.model.Restaurant;
-import br.com.votenorestaurante.model.Poll;
 
 public class CalculateRanking {
 
@@ -31,5 +31,4 @@ public class CalculateRanking {
 		Collections.sort(listScore);
 		return listScore;
 	}
-
 }
