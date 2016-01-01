@@ -1,26 +1,54 @@
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<div class="clearfix">
-				<h4 class="panel-title titulo-painel">Ranking dos Restaurantes</h4>
-			</div>
-		</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="clearfix">
+            <h4 class="panel-title titulo-painel">Ranking dos Restaurantes</h4>
+        </div>
+    </div>
+    <div class="container-fluid">
 
-		<div class="panel-body">
-			<div id="page-wrap" class="container-fluid">
-				<c:forEach items="${restaurants}" var="ranking">
-					<div class="row vertical-center-row">
-						<div class="text-center col-md-1 col-md-offset-1">
-							<div class="thumbnail">
-								<img src="/vote-no-restaurante/img/${ranking.restaurant.id}.jpg"
-									alt="...">
-							</div>
-						</div>
+        <div class="row jumbotron" id="page-wrap">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Votos Gerais</div>
 
-						<div class="caption">
-							<p>Número de votos - ${ranking.count }</p>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-	</div>
+                    <table class="table">
+                        <tr>
+                            <th>Votos</th>
+                            <th>Restaurante</th>
+                        </tr>
+                        <c:forEach items="${restaurants}" var="poll">
+                            <tr>
+                                <th>${poll.count}</th>
+                                <th>${poll.restaurant.name}</th>
+                            </tr>
+                        </c:forEach>
+
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Votos Por Usu&aacute;rio</div>
+
+                    <table class="table">
+                        <tr>
+                            <th>Votos</th>
+                            <th>UsuÃ¡rio</th>
+                            <th>Restaurante</th>
+                        </tr>
+                        <c:forEach items="${restaurantsByUser}" var="users">
+                            <tr>
+                                <th>${users.count}</th>
+                                <th>${users.user.name}</th>
+                                <th>${users.restaurant.name}</th>
+                            </tr>
+                        </c:forEach>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

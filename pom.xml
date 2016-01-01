@@ -8,31 +8,6 @@
 	<name>Andre Lemos</name>
 	<description>Projeto Simples Votacao</description>
 
-	<repositories>
-		<repository>
-			<id>eap</id>
-			<url>http://maven.repository.redhat.com/techpreview/all</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>eap</id>
-			<url>http://maven.repository.redhat.com/techpreview/all</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>br.com.caelum</groupId>
@@ -115,9 +90,6 @@
 			<version>4.12</version>
 		</dependency>
 
-
-
-
 	</dependencies>
 
 	<build>
@@ -138,31 +110,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when
-				invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app
-				will need. -->
-			<!-- By default that is to put the resulting archive into the 'webapps'
-				folder. -->
-			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-			<id>openshift</id>
-			<build>
-				<finalName>votenorestaurante</finalName>
-				<plugins>
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
-						<configuration>
-							<outputDirectory>webapps</outputDirectory>
-							<warName>ROOT</warName>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 </project>

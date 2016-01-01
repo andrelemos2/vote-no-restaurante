@@ -1,4 +1,4 @@
-package br.com.votenorestaurante.controller;
+package br.com.votenorestaurante.service;
 
 import br.com.votenorestaurante.dao.FactoryDAO;
 import br.com.votenorestaurante.model.Restaurant;

@@ -1,16 +1,17 @@
 package br.com.votenorestaurante.controller;
 
-import java.util.Date;
-import java.util.List;
-
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.votenorestaurante.dao.FactoryDAO;
+import br.com.votenorestaurante.model.Poll;
 import br.com.votenorestaurante.model.Restaurant;
 import br.com.votenorestaurante.service.CombinationFactory;
+import br.com.votenorestaurante.service.LoadInitialData;
 import br.com.votenorestaurante.service.Research;
-import br.com.votenorestaurante.model.Poll;
+
+import java.util.Date;
+import java.util.List;
 
 @Resource
 public class PollController extends AbstractController {
@@ -22,7 +23,7 @@ public class PollController extends AbstractController {
 		this.research = research;
 	}
 
-	@Get("/")
+	@Get(value = "/vote-no-restaurante/poll/list")
 	public void list() {
 		log.info("Carregando listas inicias");
 		loadInitialList();
@@ -60,12 +61,13 @@ public class PollController extends AbstractController {
 		}
 	}
 
+	@Get(value = "/vote-no-restaurante/poll/save")
 	public void save(String id) {
 		log.info("Voto realizado, salvando.");
 		Restaurant restaurant = factoryDAO.getDao(Restaurant.class).getById(new Long(id));
 		Restaurant otherRestaurant = getOtherRestaurant(research.getRestaurantsInPoll(), new Long(id));
 
-		Poll poll = new Poll(restaurant, otherRestaurant, null, new Date());
+		Poll poll = new Poll(restaurant, otherRestaurant, research.getUser(), new Date());
 		research.addPoll(poll);
 		result.redirectTo(PollController.class).list();
 

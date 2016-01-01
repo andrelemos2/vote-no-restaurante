@@ -23,9 +23,8 @@ public class PollingTest extends TestCase {
                 .withUser("Teste", "teste@teste.com.br")
                 .building();
 
-        Boolean isPolled = poll.isPolled(poll.getRestaurant(), poll.getOtherRestaurant());
 
-        assertNotSame(isPolled, true);
+        assertNotNull(poll.getRestaurant());
     }
 
 }
