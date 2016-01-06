@@ -21,7 +21,6 @@
 			<version>2.3.2</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -143,41 +142,26 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.10</version>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
 				<executions>
 					<execution>
-						<id>unpack</id>
-						<phase>package</phase>
-						<goals>
-							<goal>unpack</goal>
-						</goals>
+						<phase>prepare-package</phase>
 						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.wildfly</groupId>
-									<artifactId>wildfly-dist</artifactId>
-									<version>8.2.0.Final</version>
-									<type>zip</type>
-									<overWrite>false</overWrite>
-									<outputDirectory>target</outputDirectory>
-								</artifactItem>
-							</artifactItems>
+							<tasks>
+								<copy file="${basedir}/src/main/webapp/WEB-INF/web.xml" todir="${project.build.directory}" />
+								<java fork="true" classname="br.com.caelum.vraptor.scan.VRaptorStaticScanning" classpathref="maven.compile.classpath">
+									<arg value="${project.build.directory}/web.xml" />
+									<classpath refid="maven.compile.classpath" />
+									<classpath path="${project.build.outputDirectory}" />
+								</java>
+							</tasks>
 						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
 					</execution>
 				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<outputDirectory>target/wildfly-8.2.0.Final/standalone/deployments</outputDirectory>
-					<warName>vote-no-restaurante</warName>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
