@@ -34,7 +34,7 @@ public class PollController extends AbstractController {
 
 		if (combinations == null) {
 			List<User> users = factoryDAO.getDao(User.class).list();
-			if (users.size() != 0) {
+			if (users.size() != 0 || research.getUser() != null) {
 				log.info("Usuario ok - Redirecionando para o ranking geral");
 				result.redirectTo(RankingController.class).list();
 				return;

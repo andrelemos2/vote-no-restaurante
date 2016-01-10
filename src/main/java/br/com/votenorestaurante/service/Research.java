@@ -1,7 +1,7 @@
 package br.com.votenorestaurante.service;
 
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor.ioc.SessionScoped;
 import br.com.votenorestaurante.model.Poll;
 import br.com.votenorestaurante.model.Restaurant;
 import br.com.votenorestaurante.model.User;
@@ -9,7 +9,7 @@ import br.com.votenorestaurante.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApplicationScoped
+@SessionScoped
 @Component
 public class Research {
 
