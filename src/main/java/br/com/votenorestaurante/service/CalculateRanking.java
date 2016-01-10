@@ -45,8 +45,8 @@ public class CalculateRanking {
 		}
 		
 		List<UserRanking> userRankingList = new ArrayList<UserRanking>();
-		for (String UserEmail : rankingByUser.keySet()) {
-			userRankingList.add(rankingByUser.get(UserEmail));
+		for (String userEmail : rankingByUser.keySet()) {
+			userRankingList.add(rankingByUser.get(userEmail));
 		}
 		Collections.sort(userRankingList);
 		return userRankingList;
@@ -75,12 +75,7 @@ public class CalculateRanking {
 		//ordenando pela maior pontuação
 		Collections.sort(listScore);
 
-
-		
 		return listScore.get(0);
-
 	}
-	
-	
-	
+
 }
