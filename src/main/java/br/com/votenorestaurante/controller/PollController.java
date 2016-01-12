@@ -6,7 +6,6 @@ import br.com.caelum.vraptor.Result;
 import br.com.votenorestaurante.dao.FactoryDAO;
 import br.com.votenorestaurante.model.Poll;
 import br.com.votenorestaurante.model.Restaurant;
-import br.com.votenorestaurante.model.User;
 import br.com.votenorestaurante.service.CombinationFactory;
 import br.com.votenorestaurante.service.LoadInitialData;
 import br.com.votenorestaurante.service.Research;
@@ -33,15 +32,14 @@ public class PollController extends AbstractController {
 				this.research.getPolls());
 
 		if (combinations == null) {
-			List<User> users = factoryDAO.getDao(User.class).list();
 
-			if (users.size() > 0 || research.getUser() != null) {
-				log.info("Usuario ok - Redirecionando para o ranking geral");
-				result.redirectTo(RankingController.class).list();
-				return;
-			} else {
+			if (research.getPolls() != null) {
 				log.info("Votacao ok - Redirecionando para formulario do usuario");
 				result.redirectTo(UserController.class).list();
+				return;
+			} else {
+				log.info("Usuario ok - Redirecionando para o ranking geral");
+				result.redirectTo(RankingController.class).list();
 				return;
 			}
 
