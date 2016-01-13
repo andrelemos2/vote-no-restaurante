@@ -1,10 +1,14 @@
 package br.com.votenorestaurante.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 @Entity
+@Table(name = "restaurant")
+@TableGenerator(name = "restaurant_generator", table = "table_ids", pkColumnName = "table", 
+				pkColumnValue = "restaurant_id", valueColumnName = "id_actual")
 public class Restaurant extends EntityTemplate{
-
 	
 	private String name;
 	private String category;

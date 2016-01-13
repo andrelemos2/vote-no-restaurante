@@ -2,7 +2,7 @@ package br.com.votenorestaurante.test;
 
 import br.com.votenorestaurante.model.Poll;
 import br.com.votenorestaurante.model.Restaurant;
-import br.com.votenorestaurante.model.User;
+import br.com.votenorestaurante.model.UserRegister;
 
 /**
  * Created by andreasl on 28/12/15.
@@ -24,7 +24,7 @@ public class PollBuilder {
     }
 
     public PollBuilder withUser(String name, String email){
-        User user = new User();
+        UserRegister user = new UserRegister();
         user.setName(name);
         user.setEmail(email);
         this.instance.setUser(user);

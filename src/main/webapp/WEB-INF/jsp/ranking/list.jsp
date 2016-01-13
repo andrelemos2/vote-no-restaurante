@@ -5,7 +5,11 @@
         </div>
     </div>
     <div class="container-fluid">
-
+        <h2>
+            <c:if test="${message!=null}">
+                <font color="red">${message }</font>
+            </c:if>
+        </h2>
         <div class="row jumbotron" id="page-wrap">
             <div class="col-md-6">
                 <div class="panel panel-default">
@@ -35,7 +39,7 @@
                     <table class="table">
                         <tr>
                             <th>Votos</th>
-                            <th>Usuário</th>
+                            <th>Usu&aacute;rio</th>
                             <th>Restaurante</th>
                         </tr>
                         <c:forEach items="${restaurantsByUser}" var="users">
@@ -52,3 +56,4 @@
         </div>
     </div>
 </div>
+<b><a href=${pageContext.request.contextPath}/vote-no-restaurante/poll/list>Refazer vota&ccedil;&atilde;o</a></b>

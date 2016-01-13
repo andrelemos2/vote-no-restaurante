@@ -21,6 +21,14 @@
 			<version>2.3.2</version>
 		</dependency>
 
+		<!-- Teste Postgresql -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901-1.jdbc4</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -196,8 +204,11 @@
 						<phase>prepare-package</phase>
 						<configuration>
 							<tasks>
-								<copy file="${basedir}/src/main/webapp/WEB-INF/web.xml" todir="${project.build.directory}" />
-								<java fork="true" classname="br.com.caelum.vraptor.scan.VRaptorStaticScanning" classpathref="maven.compile.classpath">
+								<copy file="${basedir}/src/main/webapp/WEB-INF/web.xml"
+									todir="${project.build.directory}" />
+								<java fork="true"
+									classname="br.com.caelum.vraptor.scan.VRaptorStaticScanning"
+									classpathref="maven.compile.classpath">
 									<arg value="${project.build.directory}/web.xml" />
 									<classpath refid="maven.compile.classpath" />
 									<classpath path="${project.build.outputDirectory}" />

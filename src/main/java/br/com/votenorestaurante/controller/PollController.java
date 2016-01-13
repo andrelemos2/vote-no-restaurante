@@ -29,10 +29,9 @@ public class PollController extends AbstractController {
 		loadInitialList();
 
 		List<Restaurant> combinations = new CombinationFactory().getValidCombination(research.getRestaurantsToUser(),
-				this.research.getPolls());
+				research.getPolls());
 
 		if (combinations == null) {
-
 			if (research.getPolls() != null) {
 				log.info("Votacao ok - Redirecionando para formulario do usuario");
 				result.redirectTo(UserController.class).list();

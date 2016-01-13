@@ -4,7 +4,7 @@ import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;
 import br.com.votenorestaurante.model.Poll;
 import br.com.votenorestaurante.model.Restaurant;
-import br.com.votenorestaurante.model.User;
+import br.com.votenorestaurante.model.UserRegister;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class Research {
 
-	private User user;
+	private UserRegister user;
 	private List<Poll> polls;
 	private List<Restaurant> restaurantsToUser;
 	private List<Restaurant> restaurantsInPoll;
@@ -22,7 +22,7 @@ public class Research {
 
 	}
 
-	public Research(User user, List<Poll> polls) {
+	public Research(UserRegister user, List<Poll> polls) {
 		super();
 		this.user = user;
 		this.polls = polls;
@@ -36,11 +36,11 @@ public class Research {
 		this.restaurantsInPoll = restaurantsInPoll;
 	}
 
-	public User getUser() {
+	public UserRegister getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserRegister user) {
 		if (this.polls != null) {
 			for (Poll poll : this.polls) {
 				poll.setUser(user);

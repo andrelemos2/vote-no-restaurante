@@ -36,4 +36,10 @@ public class ReflectDao<T extends EntityTemplate> implements DaoImpl<T> {
 		return (T) this.factoryDAO.getSession().load(clazz, id);
 	}
 
+	@Override
+	public void delete(EntityImpl entity) {
+		Transaction tx = this.factoryDAO.getSession().beginTransaction();
+		this.factoryDAO.getSession().delete(entity);
+		tx.commit();
+	}
 }

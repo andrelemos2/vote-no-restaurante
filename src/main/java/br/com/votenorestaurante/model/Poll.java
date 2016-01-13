@@ -1,42 +1,38 @@
 package br.com.votenorestaurante.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-
 @Entity
+@Table(name = "poll")
+@TableGenerator(name = "poll_generator", table = "table_ids", pkColumnName = "table", 
+				pkColumnValue = "poll_id", valueColumnName = "id_actual")
 public class Poll extends EntityTemplate{
 
 	
-	@OneToOne
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name = "restaurant_id")
 	private Restaurant restaurant;
-	@OneToOne
-	private User user;
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name = "userregister_id")
+	private UserRegister userregister;
 	private Date date;
 
 	@Transient
 	private Restaurant otherRestaurant;
-	
-	
-
-	
 
 	public Poll() {
 		super();
 	}
 
-	public Poll(Restaurant restaurant, Restaurant otherRestaurant, User user, Date date) {
+	public Poll(Restaurant restaurant, Restaurant otherRestaurant, UserRegister userregister, Date date) {
 		super();
 		this.restaurant = restaurant;
-		this.user = user;
+		this.userregister = userregister;
 		this.date = date;
 		this.otherRestaurant = otherRestaurant;
 	}
 
-	
-	
 	
 	public Restaurant getRestaurant() {
 		return restaurant;
@@ -46,12 +42,12 @@ public class Poll extends EntityTemplate{
 		this.restaurant = restaurant;
 	}
 
-	public User getUser() {
-		return user;
+	public UserRegister getUser() {
+		return userregister;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(UserRegister userregister) {
+		this.userregister = userregister;
 	}
 
 	public Date getDate() {

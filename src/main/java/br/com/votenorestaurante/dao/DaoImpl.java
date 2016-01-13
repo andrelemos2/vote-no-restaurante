@@ -12,5 +12,6 @@ public interface DaoImpl <T extends EntityTemplate>{
 	public void save(EntityImpl entity);
 	public List<T> list();
 	public T getById(Long id);
+	public void delete(EntityImpl entity);
 	
 }
