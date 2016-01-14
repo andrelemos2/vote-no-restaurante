@@ -3,6 +3,8 @@ App Vote No Restaurante
 
 Aplicação simples para votação
 
+http://andrelemos-vote-no-restaurante.herokuapp.com/
+
 Construindo na sua máquina
 ==========================
 
