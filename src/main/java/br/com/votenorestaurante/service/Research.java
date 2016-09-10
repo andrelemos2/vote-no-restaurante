@@ -1,7 +1,5 @@
 package br.com.votenorestaurante.service;
 
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.SessionScoped;
 import br.com.votenorestaurante.model.Poll;
 import br.com.votenorestaurante.model.Restaurant;
 import br.com.votenorestaurante.model.UserRegister;
@@ -9,8 +7,9 @@ import br.com.votenorestaurante.model.UserRegister;
 import java.util.ArrayList;
 import java.util.List;
 
-@SessionScoped
-@Component
+import org.springframework.stereotype.Service;
+
+@Service
 public class Research {
 
 	private UserRegister user;

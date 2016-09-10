@@ -13,9 +13,11 @@ public class Poll extends EntityTemplate{
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "restaurant_id")
 	private Restaurant restaurant;
+	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "userregister_id")
 	private UserRegister userregister;
+	
 	private Date date;
 
 	@Transient

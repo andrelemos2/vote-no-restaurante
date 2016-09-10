@@ -1,8 +1,5 @@
 package br.com.votenorestaurante.controller;
 
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.votenorestaurante.dao.FactoryDAO;
 import br.com.votenorestaurante.model.Poll;
 import br.com.votenorestaurante.model.UserRegister;
@@ -13,54 +10,71 @@ import br.com.votenorestaurante.service.UserRanking;
 
 import java.util.List;
 
-@Resource
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@RestController
 public class UserController extends AbstractController {
 
-    private Research research;
+	private Research research;
 
-    public UserController(Result result, FactoryDAO factoryDAO, Research research) {
-        super(factoryDAO, result);
-        this.research = research;
-    }
+	public UserController(ModelAndView result, FactoryDAO factoryDAO, Research research) {
+		super(factoryDAO, result);
+		this.research = research;
+	}
 
-    @Get(value = "/vote-no-restaurante/user/list")
-    public void list() {
-        log.info("Carregando formulario do usuario");
-        List<UserRegister> users = factoryDAO.getDao(UserRegister.class).list();
+	@RequestMapping(value = "/vote-no-restaurante/user/list", method = RequestMethod.GET)
+	public ModelAndView list(RedirectAttributes attributes) {
+		log.info("Carregando formulario do usuario");
+		List<UserRegister> users = factoryDAO.getDao(UserRegister.class).list();
 
-        if (users.size() >= 1) {
-            result.include("message", "Por enquanto somente 1 usuário pode fazer a votação.");
-            result.redirectTo(RankingController.class).list();
-        } else {
+		ModelAndView mv = new ModelAndView();
 
-            CalculateRanking calculateRanking = new CalculateRanking();
-            List<RestaurantRanking> restaurants = calculateRanking.getRanking(research.getPolls());
-            List<UserRanking> restaurantsByUser = calculateRanking.getRankingByUser(research.getPolls(), users);
+		if (users.size() >= 1) {
+			attributes.addFlashAttribute("message", "Por enquanto somente 1 usuário pode fazer a votação.");
 
-            result.include("restaurants", restaurants);
-            result.include("restaurantsByUser", restaurantsByUser);
-        }
+			mv.setViewName("redirect:/ranking/list");
 
-    }
+			return mv;
+		} else {
 
-    @Get("/vote-no-restaurante/user/save")
-    public void save(UserRegister user) {
-        if (user == null || !user.isNotValid()) {
-            result.include("message", "Usuario invalido, preencha todos os campos");
-            result.redirectTo(this).list();
-        }
+			CalculateRanking calculateRanking = new CalculateRanking();
+			List<RestaurantRanking> restaurants = calculateRanking.getRanking(research.getPolls());
+			List<UserRanking> restaurantsByUser = calculateRanking.getRankingByUser(research.getPolls(), users);
 
-        log.info("Registrando usuario");
-        factoryDAO.getDao(UserRegister.class).save(user);
+			mv.addObject("restaurants", restaurants);
+			mv.addObject("restaurantsByUser", restaurantsByUser);
+		}
+		return mv;
 
-        research.setUser(user);
+	}
 
-        for (Poll poll : research.getPolls()) {
-            factoryDAO.getDao(Poll.class).save(poll);
-        }
+	@RequestMapping(value = "/vote-no-restaurante/user/save", method = RequestMethod.GET)
+	public ModelAndView save(UserRegister user, RedirectAttributes attributes) {
 
-        log.info("Redirecionando para o formulario de Ranking");
-        result.redirectTo(RankingController.class).list();
-    }
+		ModelAndView mv = new ModelAndView();
+		if (user == null || !user.isNotValid()) {
+			attributes.addFlashAttribute("message", "Usuario invalido, preencha todos os campos");
+			mv.setViewName("redirect:/user/list");
+
+			return mv;
+		}
+
+		log.info("Registrando usuario");
+		factoryDAO.getDao(UserRegister.class).save(user);
+
+		research.setUser(user);
+
+		for (Poll poll : research.getPolls()) {
+			factoryDAO.getDao(Poll.class).save(poll);
+		}
+
+		log.info("Redirecionando para o formulario de Ranking");
+		mv.setViewName("redirect:/ranking/list");
+		return mv;
+	}
 
 }

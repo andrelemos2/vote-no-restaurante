@@ -4,13 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
 import br.com.votenorestaurante.model.EntityTemplate;
 
 @SuppressWarnings("deprecation")
-@Component
-@ApplicationScoped
 public class FactoryDAO {
 
 	protected SessionFactory sessionFactory;

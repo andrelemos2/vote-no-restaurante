@@ -1,8 +1,5 @@
 package br.com.votenorestaurante.controller;
 
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.votenorestaurante.dao.FactoryDAO;
 import br.com.votenorestaurante.model.Poll;
 import br.com.votenorestaurante.model.UserRegister;
@@ -12,15 +9,20 @@ import br.com.votenorestaurante.service.UserRanking;
 
 import java.util.List;
 
-@Resource
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+@RestController
 public class RankingController extends AbstractController {
 
-	public RankingController(FactoryDAO factoryDAO, Result result) {
+	public RankingController(FactoryDAO factoryDAO, ModelAndView result) {
 		super(factoryDAO, result);
 	}
 
-	@Get(value = "/vote-no-restaurante/ranking/save")
-	public void list() {
+	@RequestMapping(value = "/vote-no-restaurante/ranking/save", method = RequestMethod.GET)
+	public ModelAndView list() {
 		log.info("Carregando ranking de restaurantes");
 		List<Poll> polls = factoryDAO.getDao(Poll.class).list();
 		List<UserRegister> users = factoryDAO.getDao(UserRegister.class).list();
@@ -28,9 +30,11 @@ public class RankingController extends AbstractController {
 		List<RestaurantRanking> restaurants = calculateRanking.getRanking(polls);
 		List<UserRanking> restaurantsByUser = calculateRanking.getRankingByUser(polls, users);
 
-		result.include("restaurants", restaurants);
-		result.include("restaurantsByUser", restaurantsByUser);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("restaurants", restaurants);
+		mv.addObject("restaurantsByUser", restaurantsByUser);
 
+		return mv;
 	}
 
 }
