@@ -1,72 +1,68 @@
 package br.com.votenorestaurante.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.concurrent.atomic.AtomicLong;
 
-@Entity
-@Table(name = "restaurant")
-@TableGenerator(name = "restaurant_generator", table = "table_ids", pkColumnName = "table", 
-				pkColumnValue = "restaurant_id", valueColumnName = "id_actual")
-public class Restaurant extends EntityTemplate{
-	
-	private String name;
-	private String category;
-	private String description;
-	private String imageId;
+public class Restaurant {
 
-	public Restaurant() {
-		super();
-	}
+    private Long id;
 
-	public Restaurant(String name, String category, String description) {
-		super();
-		this.name = name;
-		this.category = category;
-		this.description = description;
-	}
-	
-	public String getName() {
-		return name;
-	}
+    private String name;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String category;
 
-	public String getCategory() {
-		return category;
-	}
+    private String description;
+    private String imageId;
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getImageId() {
-		return imageId;
-	}
-
-	public void setImageId(String imageId) {
-		this.imageId = imageId;
-	}
+    private final AtomicLong counter = new AtomicLong();
 
 
-@Override
-public boolean equals(Object o){
-	Restaurant rec = (Restaurant) o;
-	if(rec.id.equals(this.id)){
-		return true;
-	}
-	return false;
-}
-	
-	
+    public Restaurant(String name, String category, String description, String imageId) {
+        this.id = counter.incrementAndGet();
+        this.name = name;
+        this.category = category;
+        this.description = description;
+        this.imageId = imageId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
 }
