@@ -1,68 +1,54 @@
 package br.com.votenorestaurante.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.concurrent.atomic.AtomicLong;
 
+@Entity
+@Table(name = "restaurant")
 public class Restaurant {
 
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "restaurant_id")
+	private int id;
 
-    private String name;
+	@Column(name = "restaurant_name")
+	private String name;
 
-    private String category;
+	@Column(name = "restaurant_category")
+	private String category;
 
-    private String description;
-    private String imageId;
+	@Column(name = "restaurant_description")
+	private String description;
 
-    private final AtomicLong counter = new AtomicLong();
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public Restaurant(String name, String category, String description, String imageId) {
-        this.id = counter.incrementAndGet();
-        this.name = name;
-        this.category = category;
-        this.description = description;
-        this.imageId = imageId;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public String getCategory() {
+		return category;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

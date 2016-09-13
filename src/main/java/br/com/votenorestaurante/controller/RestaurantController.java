@@ -1,18 +1,24 @@
 package br.com.votenorestaurante.controller;
 
-import br.com.votenorestaurante.model.Restaurant;
+import br.com.votenorestaurante.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.concurrent.atomic.AtomicLong;
-
-@RestController
+@Controller
+@RequestMapping("/restaurants")
 public class RestaurantController {
 
-    @RequestMapping("/restaurant/list")
-    public Restaurant list() {
-        return new Restaurant("teste", "categoria", "descricao", "1");
+    @Autowired
+    private RestaurantRepository repository;
+
+    @RequestMapping
+    public ModelAndView find() {
+
+        ModelAndView mv = new ModelAndView("restaurant/list");
+        mv.addObject("restaurants", repository.findAll());
+        return mv;
     }
 
 }
